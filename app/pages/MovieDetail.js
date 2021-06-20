@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   View,
   Text,
@@ -14,6 +14,7 @@ import Constant from "expo-constants";
 import ChipGroup from "../components/ChipGroup";
 import TrailerItem from "../components/TrailerItem";
 import YoutubePlayer from "react-native-youtube-iframe";
+import { ThemeContext } from "../contexs/ThemeContext";
 
 const deviceWidth = Dimensions.get("window").width;
 
@@ -30,6 +31,7 @@ const MovieDetail = (props) => {
   const [trailers, setTrailers] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [trailerKey, setTrailerKey] = useState(null);
+  const { themeStyles } = useContext(ThemeContext)
   let movieGendersName = filterGenders(genres, movieItem.genre_ids);
 
   useEffect(() => {
@@ -46,7 +48,7 @@ const MovieDetail = (props) => {
   }, []);
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, themeStyles]}>
       <Modal
         animationType="slide"
         transparent={true}
@@ -62,7 +64,7 @@ const MovieDetail = (props) => {
           </View>
         </View>
       </Modal>
-      <ScrollView>
+      <ScrollView style={themeStyles}>
         <TouchableOpacity
           onPress={() => {
             props.navigation.pop();
@@ -97,8 +99,8 @@ const MovieDetail = (props) => {
             }}
           >
             <View style={{ flexWrap: "wrap", flexDirection: "column" }}>
-              <Text style={styles.title}>{movieItem.title}</Text>
-              <Text>{movieItem.release_date}</Text>
+              <Text style={[styles.title, {color: "#ee0000"}]}>{movieItem.title}</Text>
+              <Text style={themeStyles}>{movieItem.release_date}</Text>
             </View>
             <View
               style={{
@@ -114,9 +116,9 @@ const MovieDetail = (props) => {
             </View>
           </View>
           <ChipGroup genres={movieGendersName}></ChipGroup>
-          <Text style={styles.header}>Overview</Text>
-          <Text>{movieItem.overview}</Text>
-          <Text style={styles.header}>Teasers & Trailers</Text>
+          <Text style={[styles.header, themeStyles]}>Overview</Text>
+          <Text style={themeStyles}>{movieItem.overview}</Text>
+          <Text style={[styles.header, themeStyles]}>Teasers & Trailers</Text>
           <View style={styles.containerTrailers}>
             {trailers.map((item) => {
               return (
@@ -130,6 +132,7 @@ const MovieDetail = (props) => {
                   <TrailerItem
                     trailerData={item}
                     poster={movieItem.backdrop_path}
+                    themeStyles={themeStyles}
                   />
                 </TouchableOpacity>
               );
@@ -140,8 +143,6 @@ const MovieDetail = (props) => {
     </View>
   );
 };
-
-export default MovieDetail;
 
 const styles = StyleSheet.create({
   container: {
@@ -177,3 +178,5 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
 });
+
+export default MovieDetail;

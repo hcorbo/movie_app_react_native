@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { ThemeContext } from "../contexs/ThemeContext";
 
 const RecentMovieItem = (props) => {
+  const { themeStyles } = useContext(ThemeContext)
+
   return (
     <TouchableOpacity
       onPress={() =>
@@ -19,12 +22,12 @@ const RecentMovieItem = (props) => {
             uri: "http://image.tmdb.org/t/p/w342/" + props.item.poster_path,
           }}
         />
-        <View>
-          <Text style={styles.text}>{props.item.title}</Text>
+        <View style={themeStyles}>
+          <Text style={[styles.text, themeStyles]}>{props.item.title}</Text>
           <View style={{ flexDirection: "row" }}>
             <MaterialCommunityIcons name="star" size={22} color={"#F7D624"} />
-            <Text style={{ alignSelf: "center" }}>{props.item.vote_average}</Text>
-            <Text style={{ fontSize:10, alignSelf: "flex-end" }}> /10 </Text>
+            <Text style={[{ alignSelf: "center" }, themeStyles]}>{props.item.vote_average}</Text>
+            <Text style={[{ fontSize:10, alignSelf: "flex-end"}, themeStyles]}> /10 </Text>
           </View>
         </View>
       </View>

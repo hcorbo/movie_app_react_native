@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { ThemeContext } from "../contexs/ThemeContext";
 
 const MovieItem = (props) => {
+  const { themeStyles } = useContext(ThemeContext)
   return (
     <TouchableOpacity
       onPress={() =>
@@ -18,7 +20,7 @@ const MovieItem = (props) => {
             uri: "http://image.tmdb.org/t/p/w342/" + props.item.poster_path,
           }}
         />
-        <Text style={styles.text}>{props.item.title}</Text>
+        <Text style={[styles.text, themeStyles]}>{props.item.title}</Text>
       </View>
     </TouchableOpacity>
   );

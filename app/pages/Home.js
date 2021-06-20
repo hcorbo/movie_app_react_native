@@ -1,14 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { View, Text, StyleSheet, FlatList, ScrollView } from "react-native";
 import Constant from "expo-constants";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import MovieItem from "../components/MovieItem";
 import RecentMovieItem from "../components/RecentMovieItem";
+import { ThemeContext } from "../contexs/ThemeContext";
+
+
 
 const Home = ({ navigation }) => {
   const [popularMovies, setPopularMovies] = useState([]);
   const [genres, setGenres] = useState([]);
   const [recentMovies, setRecentMovies] = useState([]);
+  const {isLightTheme, themeStyles } = useContext(ThemeContext)
+
+  console.log(isLightTheme);
 
   useEffect(() => {
     (async () => {
@@ -33,14 +39,14 @@ const Home = ({ navigation }) => {
   }, []);
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, themeStyles]}>
       <View style={styles.header}>
-        <Text style={styles.title}>Movie Catch</Text>
-        <MaterialCommunityIcons name="magnify" size={24} />
+        <Text style={[styles.title, themeStyles]}>Movie Catch</Text>
+        <MaterialCommunityIcons name="magnify" size={24} color={themeStyles.color} />
       </View>
       <ScrollView>
         <View>
-          <Text style={[styles.title2]}>Popular Movies</Text>
+          <Text style={[styles.title2, themeStyles]}>Popular Movies</Text>
         </View>
         <FlatList
           keyExtractor={(item) => item.id.toString()}
@@ -55,7 +61,7 @@ const Home = ({ navigation }) => {
         </FlatList>
 
         <View>
-          <Text style={[styles.title2, styles.header]}>Recent Movies</Text>
+          <Text style={[styles.title2, styles.header, themeStyles]}>Recent Movies</Text>
         </View>
         <FlatList
           keyExtractor={(item) => item.id.toString()}
@@ -74,7 +80,7 @@ const Home = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: Constant.statusBarHeight,
+    paddingTop: Constant.statusBarHeight,
     paddingVertical: 20,
   },
   header: {

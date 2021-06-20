@@ -5,6 +5,8 @@ const deviceWidth = Dimensions.get("window").width;
 const leftPosition = (deviceWidth / 2 - 50) / 2;
 
 const TrailerItem = (props) => {
+
+
   return (
     <View>
       <Image style={styles.playButton} source={require("../assets/play-button.png")} />
@@ -14,7 +16,7 @@ const TrailerItem = (props) => {
           uri: "http://image.tmdb.org/t/p/w342/" + props.poster,
         }}
       />
-      <Text style={styles.text}>{props.trailerData.name}</Text>
+      <Text style={[styles.text, props.themeStyles]}>{props.trailerData.name}</Text>
     </View>
   );
 };
