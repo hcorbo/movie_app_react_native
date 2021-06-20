@@ -26,6 +26,8 @@ TMDb
 This project has been built using Expo.
 Go to expo project page:
 
+https://expo.io/@hcorbo/mobile_movie_app
+
 exp://exp.host/@hcorbo/mobile_movie_app
 
 ## Run Instructions
